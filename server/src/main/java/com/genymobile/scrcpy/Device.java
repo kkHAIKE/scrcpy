@@ -4,12 +4,15 @@ import com.genymobile.scrcpy.wrappers.ServiceManager;
 import com.genymobile.scrcpy.wrappers.SurfaceControl;
 import com.genymobile.scrcpy.wrappers.WindowManager;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.view.IRotationWatcher;
 import android.view.InputEvent;
+import com.genymobile.scrcpy.wrappers.ServiceManager;
+import com.genymobile.scrcpy.wrappers.SurfaceControl;
 
 public final class Device {
 
@@ -156,6 +159,19 @@ public final class Device {
     public void setClipboardText(String text) {
         serviceManager.getClipboardManager().setText(text);
         Ln.i("Device clipboard set");
+    }
+
+    public void showInputMethodPicker() {
+        serviceManager.getInputMethodManager().showInputMethodPicker();
+        Ln.i("Input Method Picker show");
+    }
+
+    public void sendBroadcast(Intent intent) {
+        serviceManager.getActivityManager().sendBroadcast(intent);
+    }
+
+    public void setInjectTextMode(boolean useIME) {
+        serviceManager.getInputMethodManager().showInputMethodPicker();
     }
 
     /**
