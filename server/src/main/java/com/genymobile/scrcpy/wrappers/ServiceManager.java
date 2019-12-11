@@ -89,7 +89,14 @@ public final class ServiceManager {
 
     public ActivityManager getActivityManager() {
         if(activityManager == null) {
-            activityManager = new ActivityManager(getService("activity", "android.app.IActivityManager"));
+            //activityManager = new ActivityManager(getService("activity", "android.app.IActivityManager"));
+
+            try {
+                Method getDefault = Class.forName("android.app.ActivityManagerNative").getDeclaredMethod("getDefault");
+                activityManager = new ActivityManager((IInterface)getDefault.invoke(null));
+            } catch (Exception e) {
+                throw new AssertionError(e);
+            }
         }
         return activityManager;
     }

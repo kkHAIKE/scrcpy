@@ -433,6 +433,11 @@ input_manager_process_key(struct input_manager *im,
         return;
     }
 
+    // SDL 2.0.5
+    if (event->repeat != 0) {
+        return;
+    }
+
     struct control_msg msg;
     if (convert_input_key(event, &msg, im->prefer_text)) {
         if (!controller_push_msg(controller, &msg)) {
